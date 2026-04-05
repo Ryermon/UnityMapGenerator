@@ -1,10 +1,7 @@
 /*
 Ryer Triezenberg
-4/1/2026
+4/4/2026
 
-
-Creator is the one interacting with the tools in the editor.
-Player is the one interacting with the objects in the gameView.
  */
 
 using System.Drawing;
@@ -13,62 +10,86 @@ using UnityEngine.UI;
 
 public class MapController : MonoBehaviour
 {
-    //Get values from creator
     [SerializeField]
-    public Button RoomButton;
+    private Vector3 roomCenter = new Vector3();
+    
+    [SerializeField]
+    private GameObject wallA;
+    
+    //Unused as of 4/1/2026
+    [SerializeField]
+    private GameObject wallB;
+    
 
-    [SerializeField]
-    public Vector3 RoomCenter = new Vector3(0, 0, 0);
-    
-    [SerializeField]
-    public GameObject WallA;
-    
-    //Will remain unused as of 4/1/2026
-    [SerializeField]
-    public GameObject WallB;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void CallRoom()
     {
-        RoomButton.onClick.AddListener(() => CreateRoom(RoomCenter, WallA));
+        CreateRoom(roomCenter, wallA);
+    }
+    
+    public void CallRoomRand()
+    {
+        CreateRoom(wallA);
     }
     
     
-    //Class will instantiate Object known as Room
-    void CreateRoom(Vector3 CenterPosition, GameObject Wall)
+    
+    private void CreateRoom(Vector3 centerPosition, GameObject wall)
     {
-        Vector3 WallSize = CalculateObjectSize(Wall);
-        float halfX = WallSize.x / 2.0f;
-        float halfY = WallSize.y / 2.0f;
+        //Calculate Size of room
+        Vector3 wallSize = CalculateObjectSize(wall);
+        
+        float halfWidth; // Check and set if x or z is Wall width rather than Wall
+        if(wallSize.x > wallSize.z)
+            halfWidth = wallSize.x / 2.0f;
+        else
+            halfWidth = wallSize.z / 2.0f;
+        
+        float halfHeight = wallSize.y / 2.0f;
+        
+        Quaternion wallRotation = new Quaternion(0f,0f,0f,1);
+        
         
         //Left Wall
-        Vector3 WallPosition = new Vector3(RoomCenter.x - halfX , RoomCenter.y, RoomCenter.z);
-        Instantiate( WallA, WallPosition, Quaternion.identity);
+        Vector3 wallPosition = new Vector3(centerPosition.x - halfWidth , centerPosition.y, centerPosition.z);
+        GameObject leftWall = Instantiate( wall, wallPosition, Quaternion.identity );
+        leftWall.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+        Debug.Log("Left Wall instantiated at" + wallPosition);
+        
         //Right Wall
-        WallPosition = new Vector3(RoomCenter.x + halfX, RoomCenter.y, RoomCenter.z);
-        Instantiate( WallA, WallPosition, Quaternion.identity);
+        wallPosition = new Vector3(centerPosition.x + halfWidth, centerPosition.y, centerPosition.z);
+        GameObject rightWall = Instantiate( wall, wallPosition, Quaternion.identity );
+        rightWall.transform.Rotate(0.0f, 270.0f, 0.0f, Space.Self);
+        Debug.Log("Right Wall instantiated at" + wallPosition);
         
         //Front Wall
-        WallPosition = new Vector3(RoomCenter.x, RoomCenter.y - halfY, RoomCenter.z);
-        Instantiate( WallA, WallPosition, Quaternion.identity);
+        wallPosition = new Vector3(centerPosition.x, centerPosition.y, centerPosition.z - halfWidth);
+        GameObject frontWall = Instantiate( wall, wallPosition, Quaternion.identity );
+        frontWall.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+        Debug.Log("Front Wall instantiated at" + wallPosition);
         
         //Back Wall
-        WallPosition = new Vector3(RoomCenter.x, RoomCenter.y + halfY, RoomCenter.z);
-        Instantiate( WallA, WallPosition, Quaternion.identity);
+        wallPosition = new Vector3(centerPosition.x, centerPosition.y, centerPosition.z + halfWidth);
+        GameObject backWall = Instantiate( wall, wallPosition, Quaternion.identity );
+        backWall.transform.Rotate(0.0f, 180.0f, 0.0f, Space.Self);
+        Debug.Log("Back Wall instantiated at" + wallPosition);
+    }
+
+    //Random Vector3
+    void CreateRoom(GameObject wall)
+    {
+        Vector3 newCenter = new Vector3(Random.Range(-15f, 15f), Random.Range(0f, 10.0f), Random.Range(-10f, 20.0f));
+        CreateRoom(newCenter, wall);
+        
     }
 
     //Calculate the Bounds of the GameObject
-    Vector3 CalculateObjectSize(GameObject Object)
+    Vector3 CalculateObjectSize(GameObject calObject)
     {
-        MeshRenderer renderer = Object.GetComponent<MeshRenderer>();
-        Vector3 m_Size;
+        MeshRenderer mRenderer = calObject.GetComponent<MeshRenderer>();
         
-        
-
-        //Fetch the size of the 
-        m_Size = renderer.bounds.size;
-
-        //Output to the console the size of the Collider volume
-        return m_Size;
+        //Fetch Vector3 of the Mesh for Object
+        Vector3 mSize = mRenderer.bounds.size;
+        Debug.Log("Object Vector3: " + mSize);
+        return mSize;
     }
 }
