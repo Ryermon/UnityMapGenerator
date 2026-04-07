@@ -10,16 +10,15 @@ The Map Generator is a Unity Package that will create rooms with objects and par
 - [x] Bug fixes 'Front' and 'Back' wall spawns
 - [x] Room Created with walls
 - [x] Random Position Test
+- [x] Add Room Array System
 ***
 ## Current Work:
-- [ ] Shorten rotation code 
 - [ ] Add Ceiling and Floor 
-- [ ] Different Sized Walls
+
 ***
 ## Backlog:
 - [ ] Split current "MapController" script up. // Need to write this out!!!
 - [ ] Add Doors
-- [ ] Add Room Array System (Array type not final)
 - [ ] Doors interlinking
 - [ ] Save/Storage system
 - 
