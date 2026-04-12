@@ -1210,22 +1210,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11fe1fe058683384fac0e228d1c09e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  roomLocation: {x: 0, y: 0.75, z: 0}
-  rooms:
+  startRoomOpen: 0
+  roomSize: 0
+  entrance: {x: 0, y: 0, z: 0}
+  exit: {x: 0, y: 0, z: 0}
+  mazeBottomLeft: {x: 0, y: 0, z: 0}
+  mazeTopRight: {x: 0, y: 0, z: 0}
+  roomsZero:
   - {fileID: 6296582069691867991, guid: 50732b44885b4574dbea14c9e10315b5, type: 3}
-  - {fileID: 2948645500093879817, guid: 8eb1ad8548c72574f8e42cf9e043020b, type: 3}
-  - {fileID: 2948645500093879817, guid: 8eb1ad8548c72574f8e42cf9e043020b, type: 3}
-  - {fileID: 2948645500093879817, guid: 8eb1ad8548c72574f8e42cf9e043020b, type: 3}
-  - {fileID: 2948645500093879817, guid: 8eb1ad8548c72574f8e42cf9e043020b, type: 3}
-  - {fileID: 2948645500093879817, guid: 8eb1ad8548c72574f8e42cf9e043020b, type: 3}
-  - {fileID: 2948645500093879817, guid: 8eb1ad8548c72574f8e42cf9e043020b, type: 3}
-  - {fileID: 2948645500093879817, guid: 8eb1ad8548c72574f8e42cf9e043020b, type: 3}
-  - {fileID: 2948645500093879817, guid: 8eb1ad8548c72574f8e42cf9e043020b, type: 3}
-  - {fileID: 6296582069691867991, guid: 50732b44885b4574dbea14c9e10315b5, type: 3}
-  - {fileID: 2948645500093879817, guid: 8eb1ad8548c72574f8e42cf9e043020b, type: 3}
-  - {fileID: 2948645500093879817, guid: 8eb1ad8548c72574f8e42cf9e043020b, type: 3}
-  - {fileID: 6296582069691867991, guid: 50732b44885b4574dbea14c9e10315b5, type: 3}
-  roomUnit: 1.5
+  roomsOne: []
+  roomsTwoAdjacent: []
+  roomsTwoParallel: []
+  roomsDoorThree: []
+  roomsDoorFour: []
 --- !u!4 &1924358722
 Transform:
   m_ObjectHideFlags: 0
