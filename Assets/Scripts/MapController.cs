@@ -5,6 +5,7 @@ Ryer Triezenberg
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.Drawing;
 using Unity.VisualScripting;
@@ -29,41 +30,42 @@ public class MapController : MonoBehaviour
     [SerializeField] [Tooltip("Most Negative X, Y and Z corner of the Maze.")]
     private Vector3 mazeBottomLeft = new Vector3(); //corner
     
-    [SerializeField] [Tooltip("Most Positive X, Y and Z corner of the Maze. (This position may not be used precisely to reserve room size)")]
-    private Vector3 mazeTopRight = new Vector3(); //corner
+    [SerializeField] [Tooltip("How many walls to form square.")]
+    private int zoneSize; 
+    
+    //[SerializeField] [Tooltip("Most Positive X, Y and Z corner of the Maze. (This position may not be used precisely to reserve room size)")]
+    //private Vector3 mazeTopRight = new Vector3(); //corner
 
-    [Header("=======Room Prefabs======")] //direction currently unclear but I will need TO_ADD Tooltip for direction of doors
-    [SerializeField]  [Tooltip("Room Prefab: No Doors")]
-    private GameObject[] roomsZero;
+    [Header("=======Object Prefabs======")] //direction currently unclear but I will need TO_ADD Tooltip for direction of doors
+    [SerializeField] [Tooltip("Empty Game Object with ZoneController.cs attached")]
+    private GameObject[] zones;
     
-    [SerializeField]  [Tooltip("Room Prefab: One Door")]
-    private GameObject[] roomsOne;
+
+    /*public class Zone
+    {
+        int zoneNumber;
+        private String zoneString;
+        GameObject[] zoneWalls;
+        GameObject[] zoneFloors;
+        GameObject[] zoneCeilings;
+        private Material hideBox
+    }*/
     
-    [SerializeField]  [Tooltip("Room Prefab: Two Doors, adjacent")]
-    private GameObject[] roomsTwoAdjacent;
-    
-    [SerializeField]  [Tooltip("Room Prefab: Two Doors, parallel")]
-    private GameObject[] roomsTwoParallel;
-    
-    [SerializeField]  [Tooltip("Room Prefab: Three Doors")]
-    private GameObject[] roomsDoorThree;
-    
-    [SerializeField]  [Tooltip("Room Prefab: Four Doors")]
-    private GameObject[] roomsDoorFour;
 
     public void Start()
     {
-        if (roomSize.IsUnityNull() || roomSize == 0.0f)
+        /*if (roomSize.IsUnityNull() || roomSize == 0.0f)
         {
             Debug.Log("Room Size is null!");
-            CalculateObjectSize();
-        }
+            //CalculateObjectSize();
+        }*/
+        
+        BasicRoom();
         
     }
     
-    float CalculateObjectSize()
+    float CalculateObjectSize(GameObject calObject)
     {
-        GameObject calObject = roomsZero[0];
         int childNum = calObject.transform.hierarchyCapacity;
         float length = 0;
 
@@ -95,7 +97,7 @@ public class MapController : MonoBehaviour
         Debug.Log(length);
         return length;
     }
-    public void CallRooms()
+   /* public void CallRooms()
     {
         for (int i = 0; i < roomsZero.Length; i++)
         {
@@ -103,7 +105,7 @@ public class MapController : MonoBehaviour
             CreateRoom(roomsZero[i], iRoomLocation);
         }
         
-    }
+    }*/
     
     public void CallRoomsRand()
     {
@@ -119,6 +121,11 @@ public class MapController : MonoBehaviour
         GameObject newRoom =  Instantiate( room, roomLocation, Quaternion.identity );
         //Destroy(newRoom, 5f);
         
+    }
+
+    void BasicRoom()
+    {
+        zones[0].GetComponent<ZoneController>().SpawnZone(mazeBottomLeft, zoneSize);
     }
 
     void imagineMaze(Vector3 roomLocation, Vector3 exit)
