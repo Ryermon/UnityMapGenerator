@@ -31,7 +31,7 @@ public class MapController : MonoBehaviour
     private Vector3 mazeBottomLeft = new Vector3(); //corner
     
     [SerializeField] [Tooltip("How many walls to form square.")]
-    private int zoneSize; 
+    private int numberOfRooms; 
     
     //[SerializeField] [Tooltip("Most Positive X, Y and Z corner of the Maze. (This position may not be used precisely to reserve room size)")]
     //private Vector3 mazeTopRight = new Vector3(); //corner
@@ -125,7 +125,7 @@ public class MapController : MonoBehaviour
 
     void BasicRoom()
     {
-        zones[0].GetComponent<ZoneController>().SpawnZone(mazeBottomLeft, zoneSize);
+        zones[0].GetComponent<ZoneController>().SpawnZone(mazeBottomLeft, numberOfRooms);
     }
 
     void imagineMaze(Vector3 roomLocation, Vector3 exit)
