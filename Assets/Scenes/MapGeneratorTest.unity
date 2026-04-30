@@ -616,8 +616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bef4b6e7e35c584a8f085562019b233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  zoneWalls:
-  - {fileID: 5329434397393523316, guid: ceb57cf6b390d844bb120d2ea9bb8e02, type: 3}
+  zoneRooms:
+  - {fileID: 6296582069691867991, guid: 50732b44885b4574dbea14c9e10315b5, type: 3}
   hideBox: {fileID: 0}
   wallLength: 1.5
   wallHeight: 1.5
@@ -1263,8 +1263,8 @@ MonoBehaviour:
   roomSize: 3.93
   entrance: {x: 0, y: 0, z: 0}
   exit: {x: 0, y: 0, z: 0}
-  mazeBottomLeft: {x: 0, y: 0, z: 0}
-  numberOfRooms: 5
+  mazeBottomLeft: {x: -6, y: 0, z: -6}
+  numberOfRooms: 6
   zones:
   - {fileID: 1162494485}
 --- !u!4 &1924358722

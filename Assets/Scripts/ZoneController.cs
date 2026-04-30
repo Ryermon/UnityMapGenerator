@@ -42,23 +42,24 @@ public class ZoneController : MonoBehaviour
         Vector3 startPosition = new Vector3(negativeCorner.x + (wallHeight / 2),negativeCorner.y + (wallHeight / 2),negativeCorner.z + (wallHeight / 2));
         Vector3 currentPosition = startPosition;
         
-        Vector3 nextLayer = new Vector3(0, 0, (wallLength / 2f));
-        Vector3 nextPosition = new Vector3((wallLength / 2f), 0, 0);
+        Vector3 nextWallLength = new Vector3(wallLength, wallLength, wallLength);
         
         
+        Debug.Log("nextLayer == " + nextWallLength);
         
         for (int i = 0, dic = 0; i < wallNumber; i++)
         {
             for (int j = 0; j < wallNumber; j++, dic++) // - 
             {
-                currentPosition.x = nextPosition.x;
+                currentPosition.x += nextWallLength.x;
+                
                 
                 Vector3 key = new Vector3(dic, j, 0);
                 zoneDictionary.Add(key ,Instantiate(zoneRooms[Random.Range(0, zoneRooms.Length - 1)], currentPosition, Quaternion.identity));
-                Debug.Log(zoneDictionary[key].name);
+                Debug.Log(zoneDictionary[key] + " at " + currentPosition);
             }
-            currentPosition += nextLayer;
-            currentPosition.z = startPosition.z;
+            currentPosition.z += nextWallLength.z;
+            currentPosition.x = startPosition.x;
 
         }
     }
